@@ -1,0 +1,112 @@
+{{- $fullName := include "fclinica-2023.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fclinica-2023.fullname" . }}
+  labels:
+    {{- include "fclinica-2023.labels" . | nindent 4 }}
+  annotations:
+    checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+spec:
+  {{- if not .Values.fclinica.autoscaling.enabled }}
+  replicas: {{ .Values.fclinica.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "fclinica-2023.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "fclinica-2023.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.fclinica.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "fclinica-2023.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.fclinica.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.fclinica.securityContext | nindent 12 }}
+          image: "{{ .Values.fclinica.image.repository }}:{{ .Values.fclinica.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.fclinica.image.pullPolicy }}
+          ports:
+            {{- range .Values.fclinica.service.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
+              protocol: {{ .protocol }}
+            {{- end }}
+ #         livenessProbe:
+ #           httpGet:
+ #             path: /
+ #             port: 8080
+ #         readinessProbe:
+ #           httpGet:
+ #             path: /
+ #             port: 8443
+          env:
+          - name: DOCUMENTROOT
+            value: /public
+          - name: TZ
+            value: Europe/Rome
+          resources:
+            {{- toYaml .Values.fclinica.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: "/opt/app-root/src/httpd-ssl/certs/tls.crt"
+              subPath: tls.crt
+              name: {{ $fullName }}-tls-public
+              readOnly: true
+            - mountPath: "/opt/app-root/src/httpd-ssl/private/tls.key"
+              subPath: tls.key
+              name: {{ $fullName }}-tls-private
+              readOnly: true
+            - name: {{ $fullName }}-env
+              mountPath: "/opt/app-root/src/.env"
+              subPath: .env  
+              readOnly: true 
+      {{ if .Values.fclinica.persistence.enabled }}
+           {{- range .Values.fclinica.tenants.tenant }}
+            - mountPath: "/opt/app-root/src/storage/app/fclinica/tenant_{{ .name }}"
+              name: {{ $fullName }}-data-{{ .name }}
+           {{ end }}
+      {{- end }}
+
+      {{- with .Values.fclinica.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.fclinica.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.fclinica.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ $fullName }}-tls-public
+          secret:
+            secretName: {{ $fullName }}-tls
+            items:
+              - key: tls.crt
+                path: tls.crt
+        - name: {{ $fullName }}-tls-private
+          secret:
+            secretName: {{ $fullName }}-tls
+            items:
+              - key: tls.key
+                path: tls.key
+        - name: {{ $fullName }}-env
+          configMap:
+            name: {{ $fullName }}-env
+      {{ if .Values.fclinica.persistence.enabled }}
+        {{- range .Values.fclinica.tenants.tenant }}
+        - name: {{ $fullName }}-data-{{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ $fullName }}-data-{{ .name }}
+        {{- end }}
+      {{- end }}

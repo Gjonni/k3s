@@ -1,0 +1,43 @@
+{{- if .Values.fclinica.cronjob.enabled -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cj-{{ include "fclinica-2023.fullname" . }}
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Allow
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          {{- with .Values.fclinica.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+          serviceAccountName: {{ include "fclinica-2023.serviceAccountName" . }}
+          containers:
+          - name: {{ include "fclinica-2023.fullname" . }}
+            image: "{{ .Values.fclinica.image.repository }}:{{ .Values.fclinica.image.tag | default .Chart.AppVersion }}"
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: DOCUMENTROOT
+              value: /public
+            - name: TZ
+              value: Europe/Rome
+            volumeMounts:
+              - name: {{ include "fclinica-2023.fullname" . }}-env
+                mountPath: "/opt/app-root/src/.env"
+                subPath: .env  
+                readOnly: true 
+            command:
+            - php 
+            - artisan
+            - schedule:run
+          restartPolicy: OnFailure
+          volumes:
+            - name: {{ include "fclinica-2023.fullname" . }}-env
+              configMap:
+                name: {{ include "fclinica-2023.fullname" . }}-env
+{{- end }}

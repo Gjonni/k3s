@@ -1,0 +1,23 @@
+{{ if .Values.fclinica.persistence.enabled }}
+  {{- $fullName := include "fclinica-2023.fullname" . -}}
+  {{- $accessModes :=  .Values.fclinica.persistence.accessModes }}
+  {{- $size := .Values.fclinica.persistence.size }}
+
+  {{- range .Values.fclinica.tenants.tenant }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $fullName }}-data-{{ .name }}
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+  - {{ $accessModes }}
+  resources:
+    requests:
+      storage: {{ $size }}
+  volumeMode: Filesystem
+  {{ end }}
+---
+{{- end }}
