@@ -25,4 +25,4 @@ spec:
   tls:
   - hosts:
     - passbolt.filice.eu
-    secretName: passbolt-sec-tls
+    secretName: passbolt-tls
