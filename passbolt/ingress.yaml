@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app.kubernetes.io/action: common
+    app.kubernetes.io/instance: passbolt
+    app.kubernetes.io/name: passbolt
+  name: passbolt-ing-common
+  namespace: passbolt
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: passbolt.filice.eu
+    http:
+      paths:
+      - backend:
+          service:
+            name: passbolt
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - passbolt.filice.eu
+    secretName: passbolt-sec-tls
