@@ -15,7 +15,7 @@ spec:
     path: monitoring
     helm:
       valueFiles:
-      - r.yaml
+      - values-dev.yaml
   syncPolicy:
     automated:
       selfHeal: true
