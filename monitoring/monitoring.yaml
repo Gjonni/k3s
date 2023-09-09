@@ -9,15 +9,15 @@ spec:
     server: https://kubernetes.default.svc
   project: applicazioni
   source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 50.3.1
-    chart: kube-prometheus-stack
-  source:
-    repoURL: https://github.com/Gjonni/k3s.git
-    path: monitoring
-    helm:
-      valueFiles:
-      - values.yaml
+  sources:
+    - chart: kube-prometheus-stack
+      repoURL:  https://prometheus-community.github.io/helm-charts
+      targetRevision: 50.3.1
+    - repoURL: https://github.com/Gjonni/k3s.git
+      path: monitoring
+      helm:
+        valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       selfHeal: true
