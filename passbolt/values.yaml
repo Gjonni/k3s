@@ -27,7 +27,6 @@ mariadb:
         - ReadWriteOnce
       size: 20Gi
       selector: {}
-    affinity: {}
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
