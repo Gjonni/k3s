@@ -37,6 +37,7 @@ mariadb:
               values:
               - 'secondary'
           topologyKey: "kubernetes.io/hostname"
+          weight: 40
 
 
 
@@ -62,6 +63,7 @@ mariadb:
               values:
               - 'primary'
           topologyKey: "kubernetes.io/hostname"
+          weight: 40
 
 app:
   initImage:
