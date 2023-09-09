@@ -12,10 +12,10 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 50.3.1
     chart: kube-prometheus-stack
-    path: dev/manifest/myapp 
-    helm:
-      valueFiles:
-      - values.yaml
+  source:
+    repoURL: https://github.com/Gjonni/k3s.git
+    path: monitoring
+
   syncPolicy:
     automated:
       selfHeal: true
