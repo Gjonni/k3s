@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd-system
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: applicazioni
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 50.3.1
+    path: monitoring
+    chart: kube-prometheus-stack
+
+  syncPolicy:
+    automated:
+      selfHeal: true
