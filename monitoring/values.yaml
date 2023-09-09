@@ -1,13 +1,4 @@
-# Default values for kube-prometheus-stack.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-## Provide a name in place of kube-prometheus-stack for `app:` labels
-##
 nameOverride: ""
-
-## Override the deployment namespace
-##
 namespaceOverride: ""
 
 ## Provide a k8s version to auto dashboard import script example: kubeTargetVersionOverride: 1.16.6
@@ -15,7 +6,7 @@ namespaceOverride: ""
 kubeTargetVersionOverride: ""
 
 ## Allow kubeVersion to be overridden while creating the ingress
-##
+ #
 kubeVersionOverride: ""
 
 ## Provide a name to substitute for the full names of resources
