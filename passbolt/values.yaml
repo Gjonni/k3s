@@ -27,26 +27,7 @@ mariadb:
         - ReadWriteOnce
       size: 20Gi
       selector: {}
-    affinity: 
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - preference:
-            matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-              - vmi1352668.contaboserver.net
-          weight: 1
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/component
-              operator: In
-              values:
-              - 'secondary'
-          topologyKey: "kubernetes.io/hostname"
-        weight: 40
+    affinity: {}
 
 
 
@@ -62,17 +43,7 @@ mariadb:
         - ReadWriteOnce
       size: 20Gi
       selector: {}
-    affinity: 
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/component
-              operator: In
-              values:
-              - 'primary'
-          topologyKey: "kubernetes.io/hostname"
-        weight: 40
+    affinity: {}
 
 app:
   initImage:
@@ -287,17 +258,7 @@ tolerations: []
 
 # -- Configure passbolt deployment affinity
 
-affinity: 
-  podAntiAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: app.kubernetes.io/name
-          operator: In
-          values:
-          - 'passbolt'
-      topologyKey: "kubernetes.io/hostname"
-    weight: 1
+affinity: {}
 # -- Add additional volumes, e.g. for overwriting config files
 extraVolumes: ""
 
