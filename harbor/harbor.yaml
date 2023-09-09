@@ -33,9 +33,6 @@ spec:
             kubeVersionOverride: ""
             className: ""
             annotations:
-              ingress.kubernetes.io/ssl-redirect: "true"
-              ingress.kubernetes.io/proxy-body-size: "0"
-              nginx.ingress.kubernetes.io/proxy-body-size: "0"
               cert-manager.io/cluster-issuer: letsencrypt-prod
               traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
             notary:
