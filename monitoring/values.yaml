@@ -47,9 +47,6 @@ alertmanager:
         parse_mode: ''
     templates:
     - '/etc/alertmanager/config/*.tmpl' 
-
-
-
 grafana:
   enabled: true
   namespaceOverride: ""
