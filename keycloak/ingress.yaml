@@ -19,7 +19,7 @@ spec:
           service:
             name: keycloak
             port:
-              number: http
+              name: http
         path: /
         pathType: ImplementationSpecific
   tls:
