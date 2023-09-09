@@ -28,6 +28,23 @@ mariadb:
       size: 20Gi
       selector: {}
     affinity: {}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - vmi1352668.contaboserver.net
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: app.kubernetes.io/component
+              operator: In
+              values:
+              - secondary
 
 
 
