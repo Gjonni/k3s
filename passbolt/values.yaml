@@ -286,7 +286,7 @@ affinity:
           values:
           - 'passbolt'
       topologyKey: "kubernetes.io/hostname"
-
+      weight: 1
 # -- Add additional volumes, e.g. for overwriting config files
 extraVolumes: ""
 
