@@ -8,17 +8,16 @@ spec:
     namespace: monitoring
     server: https://kubernetes.default.svc
   project: applicazioni
-  source:
   sources:
     - chart: kube-prometheus-stack
       repoURL:  https://prometheus-community.github.io/helm-charts
       targetRevision: 50.3.1
       helm:
         valueFiles:
-        - values-dev.yaml
+        - $values/monitoring/values.yaml
+
     - repoURL: https://github.com/Gjonni/k3s.git
       path: monitoring
-
   syncPolicy:
     automated:
       selfHeal: true
