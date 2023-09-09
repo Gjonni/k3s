@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2023-09-08T08:04:18Z"
+  generation: 866
+  name: harbor
+  namespace: argocd-system
+  resourceVersion: "32670636"
+  uid: 379a74c8-973d-42a1-99e3-8812e9a9b4a4
+spec:
+  destination:
+    namespace: harbor-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: harbor
+    helm:
+      valueFiles:
+      - values.yaml
+    repoURL: https://helm.goharbor.io
+    targetRevision: 1.13.0
+  syncPolicy:
+    automated:
+      selfHeal: true

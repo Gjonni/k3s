@@ -1,0 +1,136 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    certSource: secret
+    auto:
+      commonName: ""
+    secret:
+      secretName: "harbor-tls"
+      notarySecretName: ""
+  ingress:
+    hosts:
+      core: harbor.k3s.filice.eu
+      notary: notary.k3s.filice.eu
+    controller: default
+    kubeVersionOverride: ""
+    className: ""
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+    notary:
+      annotations: {}
+      labels: {}
+    harbor:
+      annotations: {}
+      labels: {}
+  clusterIP:
+    name: harbor
+    annotations: {}
+    ports:
+      httpPort: 80
+      httpsPort: 443
+      notaryPort: 4443
+  nodePort:
+    name: harbor
+    ports:
+      http:
+        port: 80
+        nodePort: 30002
+      https:
+        port: 443
+        nodePort: 30003
+      notary:
+        port: 4443
+        nodePort: 30004
+  loadBalancer:
+    name: harbor
+    IP: ""
+    ports:
+      httpPort: 80
+      httpsPort: 443
+      notaryPort: 4443
+    annotations: {}
+    sourceRanges: []
+externalURL: https://harbor.k3s.filice.eu
+
+
+persistence:
+  enabled: true
+  resourcePolicy: "keep"
+  persistentVolumeClaim:
+    registry:
+      existingClaim: ""
+      storageClass: ""
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 50Gi
+      annotations: {}
+    jobservice:
+      jobLog:
+        existingClaim: ""
+        storageClass: ""
+        subPath: ""
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        annotations: {}
+    database:
+      existingClaim: ""
+      storageClass: ""
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      annotations: {}
+    redis:
+      existingClaim: ""
+      storageClass: ""
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      annotations: {}
+    trivy:
+      existingClaim: ""
+      storageClass: ""
+      subPath: ""
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      annotations: {}
+
+  imageChartStorage:
+    disableredirect: false
+    type: s3
+    s3:
+      # Set an existing secret for S3 accesskey and secretkey
+      # keys in the secret should be REGISTRY_STORAGE_S3_ACCESSKEY and REGISTRY_STORAGE_S3_SECRETKEY for registry
+      #existingSecret: ""
+      region: us-west-1
+      bucket: harbor-registry
+      accesskey: d20c4bcbdbab4b23957323ed0d1f2af6
+      secretkey: 8ceed008d8422c6651e5c6a4b59e4fd3
+      regionendpoint: https://eu2.contabostorage.com
+      secure: true
+      v4auth: true
+      chunksize: "5242880"
+      storageclass: STANDARD
+      #multipartcopychunksize: "33554432"
+      #multipartcopymaxconcurrency: 100
+      #multipartcopythresholdsize: "33554432"
+
+imagePullPolicy: IfNotPresent
+
+logLevel: info
+
+existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+harborAdminPassword: "A8ZoK05$^POk1DNdW&k4"
+
+proxy:
+  httpProxy:
+  httpsProxy:
+  noProxy: 127.0.0.1,localhost,.local,.internal
+  components:
+    - core
+    - jobservice
+    - trivy
