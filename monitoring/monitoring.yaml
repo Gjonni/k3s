@@ -15,9 +15,8 @@ spec:
       helm:
         valueFiles:
         - $values/monitoring/values.yaml
-
     - repoURL: https://github.com/Gjonni/k3s.git
-      path: monitoring
+      ref: values
   syncPolicy:
     automated:
       selfHeal: true
