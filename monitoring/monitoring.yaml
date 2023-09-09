@@ -14,8 +14,138 @@ spec:
     chart: kube-prometheus-stack
     path: ./
     helm:
-      valueFiles:
-      - values.yaml
+      values: |
+        alertmanager:
+          enabled: true
+          config:
+            global:
+              resolve_timeout: 5m
+            inhibit_rules:
+              - source_matchers:
+                  - 'severity = critical'
+                target_matchers:
+                  - 'severity =~ warning|info'
+                equal:
+                  - 'namespace'
+                  - 'alertname'
+              - source_matchers:
+                  - 'severity = warning'
+                target_matchers:
+                  - 'severity = info'
+                equal:
+                  - 'namespace'
+                  - 'alertname'
+              - source_matchers:
+                  - 'alertname = InfoInhibitor'
+                target_matchers:
+                  - 'severity = info'
+                equal:
+                  - 'namespace'
+            route:
+              group_by: ['namespace']
+              group_wait: 30s
+              group_interval: 5m
+              repeat_interval: 12h
+              receiver: 'null'
+              routes:
+              - receiver: 'null'
+                matchers:
+                  - alertname =~ "InfoInhibitor|Watchdog"
+              - receiver: 'telegram'
+                matchers:
+                  - severity =~ "critical|warning"
+            receivers:
+            - name: 'null'
+            - name: 'telegram'
+              telegram_configs:
+              - bot_token: 6408633685:AAHUDL9Iclh8ZDBhfMDE98Oyk30K0I4caAQ
+                api_url: https://api.telegram.org
+                chat_id: 46184710
+                parse_mode: ''
+            templates:
+            - '/etc/alertmanager/config/*.tmpl' 
+        grafana:
+          enabled: true
+          namespaceOverride: ""
+          forceDeployDatasources: false
+          forceDeployDashboards: false
+          defaultDashboardsEnabled: true
+          defaultDashboardsTimezone: Europe/Rome
+          adminPassword: prom-operator
+
+          rbac:
+            pspEnabled: false
+
+          ingress:
+            enabled: true
+            annotations: 
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+              traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+            labels: {}
+            hosts: 
+              - grafana.k3s.filice.eu
+            path: /
+            tls: 
+              - secretName: grafana-general-tls
+                hosts:
+                - grafana.k3s.filice.eu
+
+          sidecar:
+            dashboards:
+              enabled: true
+              label: grafana_dashboard
+              labelValue: "1"
+              searchNamespace: ALL
+              annotations: {}
+              multicluster:
+                global:
+                  enabled: false
+                etcd:
+                  enabled: false
+              provider:
+                allowUiUpdates: false
+            datasources:
+              enabled: true
+              defaultDatasourceEnabled: true
+              isDefaultDatasource: true
+
+              uid: prometheus
+              annotations: {}
+              httpMethod: POST
+
+              createPrometheusReplicasDatasources: false
+              label: grafana_datasource
+              labelValue: "1"
+
+              exemplarTraceIdDestinations: {}
+
+              alertmanager:
+                enabled: true
+                uid: alertmanager
+                handleGrafanaManagedAlerts: false
+                implementation: prometheus
+
+          extraConfigmapMounts: []
+
+
+          deleteDatasources: []
+
+          additionalDataSources: []
+
+          service:
+            portName: http-web
+
+          serviceMonitor:
+            enabled: true
+            path: "/metrics"
+            labels: {}
+            interval: ""
+            scheme: http
+            tlsConfig: {}
+            scrapeTimeout: 30s
+            relabelings: []
+
+
   syncPolicy:
     automated:
       selfHeal: true
