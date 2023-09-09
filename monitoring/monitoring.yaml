@@ -11,10 +11,9 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 50.3.1
+    path: monitoring
     chart: kube-prometheus-stack
-    helm:
-      valueFiles:
-      - monitoring/values.yaml
+
   syncPolicy:
     automated:
       selfHeal: true
