@@ -14,8 +14,9 @@ spec:
       targetRevision: 50.3.1
       helm:
         valueFiles:
-        - $values/monitoring/values.yaml
+        - $values/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
+      path: monitoring
       ref: values
   syncPolicy:
     automated:
