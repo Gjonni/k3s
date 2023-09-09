@@ -27,7 +27,16 @@ mariadb:
         - ReadWriteOnce
       size: 20Gi
       selector: {}
-    affinity: {}
+    affinity: 
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/component
+              operator: In
+              values:
+              - 'secondary'
+          topologyKey: "kubernetes.io/hostname"
 
   secondary:
     persistence:
@@ -40,7 +49,18 @@ mariadb:
         - ReadWriteOnce
       size: 20Gi
       selector: {}
-    affinity: {}
+    affinity: 
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/component
+              operator: In
+              values:
+              - 'primary'
+          topologyKey: "kubernetes.io/hostname"
+
+
 app:
   initImage:
     client: mariadb
