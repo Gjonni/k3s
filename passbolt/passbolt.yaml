@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: passbolt
+  namespace: argocd-system
+spec:
+  destination:
+    namespace: passbolt
+    server: https://kubernetes.default.svc
+  project: applicazioni
+  sources:
+    - chart: passbolt
+      repoURL:  https://download.passbolt.com/charts/passbolt
+      targetRevision: 0.4.2
+      helm:
+        valueFiles:
+        - $values/passbolt/values.yaml
+    - repoURL: https://github.com/Gjonni/k3s.git
+      ref: values
+  syncPolicy:
+    automated:
+      selfHeal: true

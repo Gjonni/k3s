@@ -1,0 +1,272 @@
+redisDependencyEnabled: true
+redis:
+  auth:
+    enabled: true
+    password: "7d90IP!0AmQ3"
+  sentinel:
+    enabled: true
+
+mariadbDependencyEnabled: true
+mariadb:
+  architecture: replication
+  auth:
+    rootPassword: xYypwD6M14JF04bp
+    username: userU85
+    password: fqRUvjBQaobWrfYf
+    database: passbolt
+    replicationPassword: fqRUvjBQaobWrfYf
+  primary:
+    persistence:
+      enabled: true
+      existingClaim: ""
+      subPath: ""
+      storageClass: ""
+      labels: {}
+      annotations: {}
+      accessModes:
+        - ReadWriteOnce
+      size: 20Gi
+      selector: {}
+    affinity: {}
+
+  secondary:
+    persistence:
+      enabled: true
+      subPath: ""
+      storageClass: ""
+      labels: {}
+      annotations: {}
+      accessModes:
+        - ReadWriteOnce
+      size: 20Gi
+      selector: {}
+    affinity: {}
+app:
+  initImage:
+    client: mariadb
+    repository: mariadb
+    pullPolicy: IfNotPresent
+    tag: latest
+  cache:
+    redis:
+      enabled: true
+      sentinelProxy:
+        enabled: true
+        image:
+          repository: haproxy
+          tag: "latest"
+        resources: {}
+  resources: {}
+
+cronJobEmail:
+  enabled: true
+  schedule: "* * * * *"
+gpgPath: /etc/passbolt/gpg
+# -- Gpg server private key in base64
+gpgServerKeyPrivate: "LS0tLS1CRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQoKbFFWWUJHVERiUUlCREFERmJSRzdBWVg3M1ZOaVdXeE9SY3NjME55djJQNTI0cVhaMHVvczdRclNTY3BTTXdjZwpkU2NUellla1BXWk9COE1CODFrUDdBYVV0b09QUk4rbHB4ZVBuL2tjMzRFbDl6M3dVeHZWTWlIU1ZMb1lKM1RZCjFVT1cxaTNXbXIyWHpSbVlxMnFEWER1UlRMdDBTWjJPalNvRXlSb0xlUWIwU3NiaUowUnRkMTk4eUhTVVlNZTYKbldZTGZOVy8rQ0FId1ZYSC9aRXdLWkczRlo3WG5NRWpiS0NwNzRZSTVlT05wWGttc0dCd0JXL25PS2ZHb0lIegpaUkdJMmJ4ZDFMd2wrZ0sxeDdwZE9oTDJEQ1pqV1h3bGdGWXZtWHhyQ0hYWkNOTWxkcnpERVhzOEY4SWtxN0pwCkFpV25CVHZoaWxMMERPTVlpMXNqOUh4a3JVYnVDZ1crcG02K2hYckN6K2IwWFlxOWxvS3lXbnVocjk5Zm5rQ0sKWDBuZFhLNWtEQ3lFL0FUYVo3MVZQeVRuZFZuZW1XS2RQbWxkZnBZUVhYb3AxQ3dEcllSbXRGZk5FQUNRMysrNwpGSGsvVFVzWElhT1NtMHNiMGg1SkVKU2dHZXpBVVZwcTdjWHluVWhNVVp5UTAzSlkySkN4bFJPY3RGYWhCMmlVCjl3dGJvWXAxTlBSeUdUc0FFUUVBQVFBTC9qbWsvSkhWUW9sRldPVDFCajRlZTgxSW9MOUpoUmN5VzBtc0gwc0oKMVdpTU9pSmhHdG9ieXRLcDVzcUtVUFpFcHVoSlpQNVVwS0ZFWDBwMFNqYmtnR2tqeFFsc3F4bHFSUEFJWEM2VwpTakRQSTEwTkhEMTVtNWdOcG1tc1dlSmFkUGhTU0xIZE90bFVoY0ZSQTB1TnBUQ3JoVXJIUmtRTEYySU9KQmt3ClN6VzBrL0dGQnB4Uysrb3J3MytmVTc3ZjhRdUpXcHlzN29wK0toaDdnUnMyU3YwRFhtZjNzOGIyZzFiTUZnUnYKV2ZxeDNLOE95NUxGTm1iMmFGMGZVZVpteG1Od1ZtSW82OVR6SmdYYm5GQ2NxRHM1MTNZeVVxUWFheGx4NkJ0TAppU0ZQdW1oMWJtSUlxS1JMK2dRZTUxUVFzazVncGFTMytZclBzTFpUWnNRK1NaVEVzQzcwdWV3RFc5SkJjb3pNCkM2NEhObm9WWDR5enN5Sk1KcVRSVjdldkNJRVh3U1JaS083c1Y2UHJGZzhzSW5ZRVk4Zk9hazFCRjluSDBGRWoKVVFHTXJ5dTNNVnZ2TUVJeWRJZHFLdzh0YytZVXVhRVBybWg1Q1hWNS85NEw1UjQwODRjMmNVZHZtNTJBZlBXNgpuNzNaUG1CcUx4ME16cURZbmVYMzh2RjUrUVlBMlZSMHlaK0FiRUVFL203ekE5Y1RZOXJONHRzTlkvdE15UklkClgwMFZTZEF5Tjh1Nmc0NlA2My9pRDBkTTY0R1kyeG0xMnlXWEZYamx6L2pzaDZ1bzdMRnkzNFliRFYyWUxZVEQKeUUzZG9zT1FBZWNJN0JNQ2MxNkk4WEFseGZXbjdpZ21WMU9KdkltSTRVNEtXNHNwUHpRVU91dUdpcUhWM3lSTQpKdWh2OVlvN2c5OXU1MG5MclgyRHFJSkpETUJqTGpjOGJ3MVFnY0c1Mm1VSlBrODlzd2sxTVFnV2piY3JRZWF2Cnd0NWRyVFRpcjFXVmJyUFhNV2JwMi9sZ1plR2pCZ0RvamZvcHpERkxGVVE3TEpUMzRaWG5QakFHeGE2RzVnNWsKbnVDc1NmWVVUV21LWDI2V3ZXZGtDRGFGZmR5bDZaVHhmVWpTZnU0bndYSS9oSVN4b3ppUWVudmxTR2dqS0h4awpFL1N0bzI1SCs3akRTdEZvUmUwdGR6Tk5JeG1DUlUvYmRqNWR1WTNoeFpFb2Z4WGxuV3dKaEQ1ckF2bzNEOENUClJjSXFuNlJGSHh2TC82M3huK2V6SUp1SWRjRVRlK3RQK1V2dVNrSWhPbkNVR0c4ZFFEVGNOZGtwdjkvZ0t2eUcKT3d1QmhPUHY1aitpQ0dwU0l6dm0rUi9BVWNSeDA0a0YvM1M1MDgwek5rT3A2Q2F3elQ2US9PZ2VQNDQ0WVVkTAoydlpDbTJhVnJoZEMrSW5rWllOZjQrandmZll2ZHpkRWlJUTE0RFlCcWdsdXh6dEUydDV3UVJzRUJtdnBzMFE5Cmg0TmJudGIzVk1JSGpJZ3lBR1BaVW4yUU5qSmkvK1orbmVxTVpFVTVBQTdkYmlDYlVsRFRmbVd5MEhoNlpXbC8KTThCbHViRGI5azJmUURHWTZmdmwxaHZSMzdMemZBUTJxL2NVS1RueVZhRzNaSWFxakdUWXBqWDhMa2VCc3FkTgo5NndtNUVSVkc4dUF6WDNLSGVHR0ZVcHB4WndIbzJIUis5a1J0REpRWVhOelltOXNkQ0JrWldaaGRXeDBJSFZ6ClpYSWdQR2RwYjNaaGJtNXBMbVpwYkdsalpVQnBZMnh2ZFdRdVkyOXRQb2tCemdRVEFRb0FPQlloQkRFbTMvUGIKT0lTSjhrWHlzYzVZQ2pNQ1hxZnBCUUprdzIwQ0Foc0RCUXNKQ0FjQ0JoVUtDUWdMQWdRV0FnTUJBaDRCQWhlQQpBQW9KRU01WUNqTUNYcWZwSjI0TC9palgvRlVicnNYdzFFNExxd0Zoa0tjTEdHcFFVb01JYmw0RnQ1RGRzL2FrClBZbnlKckhDb3g2dXdTZUVha0lGekJpUHQ4ZkpFMGF1ZllGUDgvNllsRVJYdUU4VlhiTkJ5ZzFlQjcxWlpwUzIKbHpCcEdQdS9GQm9FK2tIVXNmZWlib2pIWVdBL0xrNGZHRHRyY0ZPTUNBMHI2bUpwRlBxeVFhQjNtU0dJT1IzbAplY1liNURIUzZ6NXFPVEF2UnZ1NyttbnV2RjhIZXFLWDlob28veUgyajlYbk9KQWJxREpMeTEvNGpHMlNyT3MxCk5WSjAzc01nem4rNkRDRm9Ob3NDaHZwSFV5VDV0NGtJT0JkVkYzS0tEdm9vUFpXdENCMEZuOFJlWDJYeDZGL3YKMFNwNnVpUW1RdVVRWDBPN1ZBNlNSWTdVYXdtTjFsRjYrc0d6cHByczZBOUk3UGhxcC9vUkVhWWVENE9ib2dmNwpxSmtNUVNvNXBGRlpHZWtMNm8zZEZZMm1GbkZZNUZKZ1pCY1Ntekp1MCthaS9zREd5U2FzWWJsbFJjRVIwNlVzCkxEMDJ5MjM0T2dyVTN6OVkvbm1TS3E2TVVJTkE3eTlTbVdrakNJU3NCUk5NUVJ5d1lqZVc3elN4S09KRk00bW8KanVzZURnWkptMGQvUFNXRFNJOXdXcDBIR0FSa3cyMENBUkFBb2VNS1FDc3hyWDYwSHVRdVNoam1iN0hrb3Y0cgpYeFlJb2tmRFluSzZjWjc2UU8zRm9EMXJyM2FlUVJMTWJDL3lkSWhCdzVPQ045TmkrYUx5bWdhelpaZDBCZTFxClA5WGxBbTJ3M2QxR0tYVkNObGdlekZpY000bEZCT2Fxb29tbnl6UENIWUZvY1dleHl2N05aMFhwcEtQMHhxNlIKd2JwNElXdVZZbHF1YndZL0lnVWxkYm5CTDAyN0YrQVdoUFVaNTNXVituQlRHa1gzUmRDaVRQVlNGbHYrdnpCZAoxL3NEbW9iN3VDZUl0ZDJPd1pKR1VTZlRLU2M4RTl6aGh1czNkZ1ZoRys1NmhiYkZ5SkZadURvclRiVytKNjlCClVXWjBqa0JBNDIzZkJkMlNROU1DV1NzVHJWQ25aak9HaTdGWDBkTEl0cERqVjZ2eUd4czh5azg3V1ZNYkx5blYKdk1ZVG5WdEFPNi80ZHhOS0ExSTNzc0RCVVhQcHZ2R2MyS0JsRGNVSkt3OGdNbG1rNGEyR1lNMHFEVVdLNVFzbgoxQ3YramVCVTJxZE1IeE8raThwNGlZbVZvVkRVb3J4L3l2WXlrQW1FempMcEZsSGlpRjV6WjRCSVZpbzVUVU9jCmRWbWl5NHR4ZEF0TjBaWDZtRDRoTkJVdkJ6dE9uRGhZQ3A0N1hxcll5Y1RIT3k1QlFTQnMyVTBNRVAvWCthRU8KVzFaajYxTS85UCtIcXhZYjlZV0pqL2tsVWVWREdEUVpRVFdHNis1b1BJT1Zzcys0aDZJbXJXOWtyd0V2RFVESgplY3hpUDk4cm9IMjEvVHNYaXJGT3R5a0kzbXZnRkpoMWJjZ25DdmhsZVFuYlZJcTRPb01Nd08xQzJiZ0pqeDROCmp0c3ZLVUxKSWU1aTZ1a0FFUUVBQVFBUCtnTTJrZUtPd091MkdtT0x2azZoUjg5SWZJRmtNbGxFTGVaeEE4bFIKZmVRZXNTTlJYTnB4VWFZbFN4N3A4cnNFZmh5dTdpcmx1UUJSay8yMkRMZysxbUxNM1dRM09obWJneHpDaE5wNApmTlJQNlV2UndWc1NEZ0tqV3p2Tm9NTjlDdUt0MWx1TDBQWlc4SzRCazBpS2JaTmpkT0FESzhNelo3K1dab2F4CjI2a1BqK05RTHhZZHVsNVlIZFRXTVZnN3FGaVhpbTNTdXRiZHMrVmVaQW1nbG1aNWRtT3JmL2RYR2xNLzV6YU4KNC81T2NCbmxPaVpSb3RUYi9FclN6VHFtY3A2OG5LNGN0RnVicDdsb3NpWDdFMEdLK3VQZExDL3VOM1Z4MlhVeQpLTXF4amNpYncwaUxZaUZPNVhoY3RqTlJzU3lwMjlXWGZWMnYwamNVYjF4K3lLNmZ6MXQyNHJzc3hNazlTWkxoCll4RlEzLzFtak5pb29yL0lnRlR4a1dVcUVaN3djVllsSHJMTUgzSTFRZUk4dnhHcVdDVEdHUDZyeEFSSFFhR28KU2F1bU5IY1RkQzRydGo2UDB0VDZ5bytKSmwycVBzRzhkQjgreUNxcE5KQzhpS0huYmR5VE93V0ZNVEFPWUNqYQpwSGlDNFlIbnZSVkxncjhZd1VYbjlLT3IreHhIcmM5Lzhsam1icnNhTjMzdjQySmhtKy83b0dQaE54bUx0UkdaCkxJQy9uN1hsa1hrQ3F4RGkwRm14MDFmYjVYckxsblZrbm1tN3Q4Sm1Nd1VKYXQ2Y2RCSUlXQXg0bVN3ZmhrVjkKeGxxNEhYdWRBSTVDejRucHdqVkx0VzJDdUVwWUQyN1BFbHozOEIwODB5M0tSL0M1cFFJUzBYajBGMjZBazZsNgpGTElCQ0FEQWM5dFl3ZklTeFBuc1ZTejkyTFJTUHMzejFWNmc4Um9CYUlmZTlWK3Nwclh1Uk9WOFBJeDFFYXF2CjVCckhGVVVqejVQOUtWZ00rNDcwemhrMElXL1ZKcmxBTHhTQitVUTVRUFRQZjBxenhxVldPRHNQd1dHdk5ScS8KbjJKNVdNcEIrR1hGNmZoUjREYmIxbDMxbnBiTkthUzFRODJyd2lROUhYRUsyUzU4SkE4TmdyN0FWTkFQbFlTcApocmgzWXpaK2N4Lys1ZVNjbDZYU2ZhaTVTQ2w1OVM1NCtBbWZyaXRVWFJGT21WcW56KytKVEx1UWxJa01DNDFvCkxyNTJmRVlJNXlWYjM0ayt3ekc3WWErbTF4RFZMMURVMys2SWFoM01rTlZpTlV2cGlmV1c0YSt1ajlGRVJIM0oKY3dTd3lEWEFqRXEwVUl1RVRqbnV0aS9Oc0tEcENBRFhWM0h5QlErR01JU0pmN0ZjaEVWWUpSZGRYaTNoNHoyTwphV21yeUUwVWpiVGZrNmI5NUF5NWxVSFM5NGdJcVUyMmJmVTVHMUl4R05sQ3JjT251dzFYU1NjR2xWVkVhQ3BGClRCQzZ4S2hkcWxUbk1FV0Z6RDVBcTU1NEhybmkyemp4UzVKaFRDcTlyQU90d0VrOEw1QjBzZy8vZ2JVdUkyN3YKcDMxUWdFMTU4dnQxQWFVV21XNlpWL3M0NFJBbmpvTElIV0pkeFBJWnhLU3BtUVFHUkdCRWt1cTJ5YmFKM1M2MQpNZXo3Yzc2V2tlUk1RcUZkbERBWC9hMHh2a29PTEQ1K3hMSy80LytIejk0NGNPemFhU3V4VlV6ZEhPY2I2RlpmClBoMUZnZ3IyVDJZMjVMYWFIWG8rdURDdjE2Z09MMWg3OVNTaGRSZjFVKzUzT253SDRib0JCLzlycDhqbDR6cUgKVW0rcXhrSzJNNXU5bVZYNS9VdmphNjF5MVduQTU2ZkJObmIrb0hUM1grRHRWN041V2JjaHJubkc4Kzgra1RlYwpBR25aeDcrUTk0Mm83OGRJQWtBVVN1MjVKY3NLckozaE9uZTFCS2M3UHlta1JpY0N5UlhNellWalFVdDJWOVN0Cll2d2k3TTdaQjFOdkk4RERzTGJ1UFhNbmtzeElJUDNiM3FRQXk0Q3c3R1V5UDZzT3VsZDJvMXBKNGtWYVJHU0UKb1JxYWIvTmpETnhVTnp3TFFFenBpQlZqNHJVVVo1VE0wQXgwSE83cU1aZkkzRTc4bm12ZlI4STFWMHArc2VicApMQ3VQYTRFbDJac0ZzVVN6NWYvM1NqRlo5V2NqWE1BVkIzNHhzTndqNEt1cnYyWjJSRnBpbXZibjBTTXA5RVFFClJyTUJsQlpTWUFXRGlrQ0pBYllFR0FFS0FDQVdJUVF4SnQvejJ6aUVpZkpGOHJIT1dBb3pBbDZuNlFVQ1pNTnQKQWdJYkRBQUtDUkRPV0FvekFsNm42ZUJIREFDOFBhQWpOalpFd2lhTWM0SnRTNE12ejFPd2xIbUlIaHNML3FKeAp5RGpTVkxVNjdQbi8rWFhUOURlREZoelRzM0JYVkhxY3diZkw5OWxZend0L2xSTnRWS1hMazdlY2tFMmUzNE1TCjR1QmhRWmRORlhQQnN1bUp2Z1M5VWdwZkJqRlFtZjFrNzdCemFnY3AvUmJNd0JpVVplSGdVdFNTcytrbnN4WDcKSHFjbmtTbElHRGVmYjN4Qm5BSXRDYmprVHN0aGdkZmIrZmdDRndQc01USStFZUJMWHMyUTdoMlYzVnBtSlBTTgpKZWhRS2ZUUHJ1R0pjOHdVdVBvZVNFdzZMazdsUkdjalNtTkVac0ZjS1BHVFZWV05KZFBiRUp2VmdyMWpTWDRrCjhObmZmVGhFU3ZWMmdGUkdHRzFpWnpFbVFteGRJVzk2WkR5ZTJJYndZeUdjZk1QV3I5Zkg3clY1eFNsZkpDVG4KZG1LVHlJV1dlMFdCb2hYTVZseC9WaUtPWHIwTnZjRVdtZktjWU0zM1Z1VWNlZUgwNWdWVjdZZmJrUWNsQjB2Mgp1djlpUVhrSk10aktPTURybXdjTXFxbFVjbHFUQ0FTWUJ2QlVOUUFydXNnUG9NcmpTK0Y3UXZscUV1dVdnWlhlCk9wd0xBN0RnMGNEQUU4em5GaEgvVENjRjBVUT0KPWdUUkMKLS0tLS1FTkQgUEdQIFBSSVZBVEUgS0VZIEJMT0NLLS0tLS0K"
+# -- Gpg server public key in base64
+gpgServerKeyPublic: "LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUdOQkdURGJRSUJEQURGYlJHN0FZWDczVk5pV1d4T1Jjc2MwTnl2MlA1MjRxWFowdW9zN1FyU1NjcFNNd2NnCmRTY1R6WWVrUFdaT0I4TUI4MWtQN0FhVXRvT1BSTitscHhlUG4va2MzNEVsOXozd1V4dlZNaUhTVkxvWUozVFkKMVVPVzFpM1dtcjJYelJtWXEycURYRHVSVEx0MFNaMk9qU29FeVJvTGVRYjBTc2JpSjBSdGQxOTh5SFNVWU1lNgpuV1lMZk5XLytDQUh3VlhIL1pFd0taRzNGWjdYbk1FamJLQ3A3NFlJNWVPTnBYa21zR0J3Qlcvbk9LZkdvSUh6ClpSR0kyYnhkMUx3bCtnSzF4N3BkT2hMMkRDWmpXWHdsZ0ZZdm1YeHJDSFhaQ05NbGRyekRFWHM4RjhJa3E3SnAKQWlXbkJUdmhpbEwwRE9NWWkxc2o5SHhrclVidUNnVytwbTYraFhyQ3orYjBYWXE5bG9LeVdudWhyOTlmbmtDSwpYMG5kWEs1a0RDeUUvQVRhWjcxVlB5VG5kVm5lbVdLZFBtbGRmcFlRWFhvcDFDd0RyWVJtdEZmTkVBQ1EzKys3CkZIay9UVXNYSWFPU20wc2IwaDVKRUpTZ0dlekFVVnBxN2NYeW5VaE1VWnlRMDNKWTJKQ3hsUk9jdEZhaEIyaVUKOXd0Ym9ZcDFOUFJ5R1RzQUVRRUFBYlF5VUdGemMySnZiSFFnWkdWbVlYVnNkQ0IxYzJWeUlEeG5hVzkyWVc1dQphUzVtYVd4cFkyVkFhV05zYjNWa0xtTnZiVDZKQWM0RUV3RUtBRGdXSVFReEp0L3oyemlFaWZKRjhySE9XQW96CkFsNm42UVVDWk1OdEFnSWJBd1VMQ1FnSEFnWVZDZ2tJQ3dJRUZnSURBUUllQVFJWGdBQUtDUkRPV0FvekFsNm4KNlNkdUMvNG8xL3hWRzY3RjhOUk9DNnNCWVpDbkN4aHFVRktEQ0c1ZUJiZVEzYlAycEQySjhpYXh3cU1lcnNFbgpoR3BDQmN3WWo3Zkh5Uk5Hcm4yQlQvUCttSlJFVjdoUEZWMnpRY29OWGdlOVdXYVV0cGN3YVJqN3Z4UWFCUHBCCjFMSDNvbTZJeDJGZ1B5NU9IeGc3YTNCVGpBZ05LK3BpYVJUNnNrR2dkNWtoaURrZDVYbkdHK1F4MHVzK2Fqa3cKTDBiN3UvcHA3cnhmQjNxaWwvWWFLUDhoOW8vVjV6aVFHNmd5Uzh0ZitJeHRrcXpyTlRWU2RON0RJTTUvdWd3aAphRGFMQW9iNlIxTWsrYmVKQ0RnWFZSZHlpZzc2S0QyVnJRZ2RCWi9FWGw5bDhlaGY3OUVxZXJva0prTGxFRjlECnUxUU9ra1dPMUdzSmpkWlJldnJCczZhYTdPZ1BTT3o0YXFmNkVSR21IZytEbTZJSCs2aVpERUVxT2FSUldSbnAKQytxTjNSV05waFp4V09SU1lHUVhFcHN5YnRQbW92N0F4c2ttckdHNVpVWEJFZE9sTEN3OU5zdHQrRG9LMU44LwpXUDU1a2lxdWpGQ0RRTzh2VXBscEl3aUVyQVVUVEVFY3NHSTNsdTgwc1NqaVJUT0pxSTdySGc0R1NadEhmejBsCmcwaVBjRnE1QWcwRVpNTnRBZ0VRQUtIakNrQXJNYTErdEI3a0xrb1k1bSt4NUtMK0sxOFdDS0pIdzJKeXVuR2UKK2tEdHhhQTlhNjkybmtFU3pHd3Y4blNJUWNPVGdqZlRZdm1pOHBvR3MyV1hkQVh0YWovVjVRSnRzTjNkUmlsMQpRalpZSHN4WW5ET0pSUVRtcXFLSnA4c3p3aDJCYUhGbnNjcit6V2RGNmFTajlNYXVrY0c2ZUNGcmxXSmFybThHClB5SUZKWFc1d1M5TnV4ZmdGb1QxR2VkMWxmcHdVeHBGOTBYUW9rejFVaFpiL3I4d1hkZjdBNXFHKzdnbmlMWGQKanNHU1JsRW4weWtuUEJQYzRZYnJOM1lGWVJ2dWVvVzJ4Y2lSV2JnNkswMjF2aWV2UVZGbWRJNUFRT050M3dYZApra1BUQWxrckU2MVFwMll6aG91eFY5SFN5TGFRNDFlcjhoc2JQTXBQTzFsVEd5OHAxYnpHRTUxYlFEdXYrSGNUClNnTlNON0xBd1ZGejZiN3huTmlnWlEzRkNTc1BJREpacE9HdGhtRE5LZzFGaXVVTEo5UXIvbzNnVk5xblRCOFQKdm92S2VJbUpsYUZRMUtLOGY4cjJNcEFKaE00eTZSWlI0b2hlYzJlQVNGWXFPVTFEbkhWWm9zdUxjWFFMVGRHVgorcGcrSVRRVkx3YzdUcHc0V0FxZU8xNnEyTW5FeHpzdVFVRWdiTmxOREJELzEvbWhEbHRXWSt0VFAvVC9oNnNXCkcvV0ZpWS81SlZIbFF4ZzBHVUUxaHV2dWFEeURsYkxQdUllaUpxMXZaSzhCTHcxQXlYbk1Zai9mSzZCOXRmMDcKRjRxeFRyY3BDTjVyNEJTWWRXM0lKd3I0WlhrSjIxU0t1RHFERE1EdFF0bTRDWThlRFk3Ykx5bEN5U0h1WXVycApBQkVCQUFHSkFiWUVHQUVLQUNBV0lRUXhKdC96MnppRWlmSkY4ckhPV0FvekFsNm42UVVDWk1OdEFnSWJEQUFLCkNSRE9XQW96QWw2bjZlQkhEQUM4UGFBak5qWkV3aWFNYzRKdFM0TXZ6MU93bEhtSUhoc0wvcUp4eURqU1ZMVTYKN1BuLytYWFQ5RGVERmh6VHMzQlhWSHFjd2JmTDk5bFl6d3QvbFJOdFZLWExrN2Vja0UyZTM0TVM0dUJoUVpkTgpGWFBCc3VtSnZnUzlVZ3BmQmpGUW1mMWs3N0J6YWdjcC9SYk13QmlVWmVIZ1V0U1NzK2tuc3hYN0hxY25rU2xJCkdEZWZiM3hCbkFJdENiamtUc3RoZ2RmYitmZ0NGd1BzTVRJK0VlQkxYczJRN2gyVjNWcG1KUFNOSmVoUUtmVFAKcnVHSmM4d1V1UG9lU0V3NkxrN2xSR2NqU21ORVpzRmNLUEdUVlZXTkpkUGJFSnZWZ3IxalNYNGs4Tm5mZlRoRQpTdlYyZ0ZSR0dHMWlaekVtUW14ZElXOTZaRHllMklid1l5R2NmTVBXcjlmSDdyVjV4U2xmSkNUbmRtS1R5SVdXCmUwV0JvaFhNVmx4L1ZpS09YcjBOdmNFV21mS2NZTTMzVnVVY2VlSDA1Z1ZWN1lmYmtRY2xCMHYydXY5aVFYa0oKTXRqS09NRHJtd2NNcXFsVWNscVRDQVNZQnZCVU5RQXJ1c2dQb01yalMrRjdRdmxxRXV1V2daWGVPcHdMQTdEZwowY0RBRTh6bkZoSC9UQ2NGMFVRPQo9c2N6TAotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCg=="
+# -- Configure passbolt jwt directory
+jwtPath: /etc/passbolt/jwt
+# -- JWT server private key in base64
+jwtServerPrivate: "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKS0FJQkFBS0NBZ0VBMUtNQnJOcUIvbVkweS90QlVFSlpwTERXb0dxL2d6Nk9kUkE0cDFlVzBDcUVnU2VmCmxmNlJNUHpDcUhZZ0FQdGtpUVVxN0xlSVBBdlZtcWZhSjFOeTNxVDhLQVNuekJibFZrWURCTHdRdllCSGsxeG0KYXdpTFAxbWE4cFlIaGZFejJ5TnVyZTVYd2VubXVpWmVsSG5Hd2Y2ZkF2ajZabzFTNSt4OUFHelNZcDEvUFY0QQpCcVhwZWlaVWNjZVNyTlcwY2toUXZ6czltb3BOWjBWeDE0YUZrdjdxbkpXdmpRS011R3h3Z1FEMUpseVI0MXk2CmdXU0Y3eUkwWGZ4cnVza2pOV2QrTGVjdUVqVUtVL0VMTEVJbEl6V252TVJKcGhVbXZUeDAvYWV5dHAyWkVQdzAKL3BMSm5iQ3liMCtQREhMaFd0Qmh6Rm9wWVhRc0tTVmxNK2QvWkI5TWNiTWJ6aWVLVG1tT1p2b3pXQ3QyMWFMbQpRSUZQVjNlR3pjMkJBRWxsQjdIMTdQOWwvMTdvQnV4WnAyTWhEMVpXT0hib1Z1K2lLNWs3M2R6VVpxbS9JcERLCmdZazI1c04xNUNTUGR4N3pXTThYTEE4VkJDcFZJNUpBVEFqS0tEdDVjU2N3SUtyUWNxeWhQYi9GWEVLaFJydWUKWGFBbTAyOEY0RmVieHBqcE1vcnhhMVNjdE0ySlMrMUtWWUZ2YVUxems3cGNNVXcxWHNDU2VSZ0p5UHRIbzZoVQo5aW82UWxuQ0U0azVqSDcvcDZUOVlzbnRvL1dZTUp1QXFOakpLZ2pSbUp0M2piQVVLYWJoUXd4NVJvOUdMa1YwCjQwdXRXcjVrS2hvRTdsSUxEaWg5RDM5VEZKdWJmbGl3THh0RkZXVU5IVFlYN3BkTlNyVGVNdU9meHAwQ0F3RUEKQVFLQ0FnQmVkdWhZblY1ZzRaRVZDZE5UVDVhNWxxSlM4L21PMmV5NXp2SU1UZG8vTXBSWk9Id3FTOFMrNlp1awo4WTE0UWpiQXRKNEVPZWo1SEJ6U0x6MjRlTmN3V0VWNWxjL2gyRTRjVE5Bc2UweElrOE80a0xValdkRmEzSGo4CnluQWZMaS9tYTlCUXp2RUh3ZHp4MS9mdXFFY0hpaEdrWlc0QXYwb1VwTGhIeHhDVUpQb1JEa0NlczNpTS9waEgKVCswMmdWNC80eWFVUGtJNDlMWThhZHFRY0QvSk5SeVBZZVJ5bGE1a2hEQmE3MHo1dE9oUEJMUUtwZGptaXVDTwozSVFUb0NYWEpOb21sR3lnUkJZSmdxMS9CUWV3bzdhWUl1L0JLK1pnN1luZjRtOS90M1gzMk1QR1VQbm01MGZ1Ck1YOFFmYnpsOW10c09LWG5tSS9CMjg0aEIvaE1kK1p0MXBUWGRyYXVXRjMvVjkyZGIxaDZuRjdNaXNHSFlkTVIKa1Q4dUVxL3p3T25TRlg1SW1nWmgzM1FTVkdhVXJ6alhtMkpKaFVZUkFPOStsdTlWZkRWUTVmTk9CUnRzYmZpTApLR0dsbkRaMFA1WTREa3dVd3N4R2twYkdSZXFnZkJidmtEUlZOb0ZjZjNkYkFoYjhvMFBWS3BaNTRtakxRUll4CmZ1U2NTd2o3NmltYjZ5QkpZcjNod3dIdmN3WVc1emhaSlI2bkphUkVQQ0haQ3JpMEZ3UnpmL1NzTHhmMlJHTmsKcTdhalh1N2dYZ0k3dVgySVdONGRlbVkxdzRpZGNvOG9LeG56bVV6M3FuejZ6emN2bnA0eWFHdlMxeWxCOUJUcAo5cys1bk8rSTZ5Mjk4Qmo4ckRPTWUxMGladnJJaVJJdTRKeU1MZklkY1l5a2xPRXNGUUtDQVFFQStURnBabFhEClpHdGordE5ZTU1vTzlhQmFjc3dRQzRRbzVGOFYxRUpZbGZBSHlUSk4zZ09JdnNZTDJyckwxT0JCVGFaS1dSek4KOWxhc1RhdmtVWkNRbFNHajk0Y3lMVXVCV2wweDByTDhzTVdkUjhpNXNISHFtcWF5VUVueVErMnloZmZFOVgrMApEZ2tPUnhLZDFPcHBFYkZHaVFPTVdzcllsT0hVS3VOMFVGQkpldWppK0tzbTJEVHNPMFBUWmlvWTJnUzl5T0swCmZEU1FuZlJYZGIwS1QxRlBKU2pCbGtjci9wcyt6YjFCK0JNNUNnK0pKVzc0aFNVU3Q3Z0tTUHAxVWp1NUdRWmoKdTZkSmwyRFlKb1IxNDc3cGVYbk0xcFR2MUlPMkdRUTdtWUNxMTZLdFhXNUQvYkpmM3pqT00vV0JuNE5rVU5hcApRS1pGTUdGR1d5SSt6d0tDQVFFQTJuSDFwRU9UUmVjQzJYaW1IcFB5RXlhN2xBdW4zRUV0MHdmQThIMUtwaG5GCmROZzlsTXRyMVlvenBJTWVWMHlvR3BmbXNYNyt5cEwwQnZ2TjF5V1Y2bEN3YnZmWjVMMDJTWEZqT0p3NjNEcE4KVkR2MWRLM2pWQzVHeC83V080NFJ0a0FPUFk5cjZSRjRobFp4bnF6YUpiUi9KS3ZqaG85azFQQzhwdythNTkvOQp2ZWVjckRPaTF6MFJsUFdZaHovWWlIakNiWmduZWdHNGdxc3JZVTVtUmE0NXJHWjB0czE0Q2tMOEdLK0VTa2xyCjArUlAralozSG5yWjcyU09peTNjWW1xTnd1akJuQUF3VVFUd1ZiaDQzaCtSTXprT2R3ZG5HRFR1NUxPaWtCVi8KczRUbVJWSUJRYW9OT1ZPcUlObEl4V0hXeENXS1cyT2M5MTAxSE1wZTB3S0NBUUFGcDNCYnlSQmc0K3JsMHd2SwpONXQxU1Vra0Y2czVoNnNoMjJKMGFYajNGZlluUTRQdXlLZStwR0c2ZWNpTU1QWnFXNTZPUFJBVFNjNHBDUUJxCk5WeUNkYnZ4cnRpZG5IdjMzK3QwZTJrdVhaMSs5bmY0SCsyUnlyeDdBK0tDVmc5WjZOQklQYmlKSlAxMDhXQXgKWjR3d3daUDNJZVI2WHVYaEl1cWNlb0syRzh3L0JLKzVzckJ6OFdkMnhNZzBKanBnSUFGcVlISjE2djlwQmhWQgo3Nk1mUDVvTEhzeWRxMG05UWlwL29vNnZvVWdIQ1drME56dGVVZ1FGdFNCT25aZ3g0SGNIc1ZScitwUzU0WkdsCjloVnlzRzg5dVZ6RGRhZW5hOEdpK2F5Y2hBWGNWSzJZVkJzbzAzWkhhMU9LYkVTZnFPeUt4UVFjR21teGVsT04KVjg2VEFvSUJBUUNkYWovazFwbDdaeVNqaUpEVk9qSFk0VEdOVnZUcEFNTS83cmQzMWlJRUhsQXZpbUNlS0JVVwpOZGhQTmZtWVdYSk9iNlpieEROaDBaSXVzaWc4WVNadVN5VkpZaXhQN0pZQlNNZUNsUHJKbHU0QXhKQjJPNVMxCkpmLzF3VXVxY1ErTWNRNlNDQmR3UmhtL1hPM1Z0YVFpUmJiVnUxUmp0Rk9xSzYwWENtVExzWnROeldrV29zTTMKTGhmTWEwczJNNmtiZDBKTTdiZU04VTZBUTA4b2VQRzBSdi9pbjVaOTRRVWZCL1JZNmFxQVNmWjlKR3NKMlZQdgowQUhheEhFQUZOVmF5b1JMcjZWTmdNbFFxU2x6N0ZLVlp0UWd3SDRQQW5PbGV3ZW9JVmNGVTZqSnVmeWllWnpVCkwvSUZuS2Zkc2hjQnZpYWhCSmgya1FzZEtycktlMzduQW9JQkFCdHR6THZtR2NQcnQ4bHRZSmFpbzR2S3lYWmwKUjRBdVNkbXd6VFRiRHFVSmd3YnJnWVptYzM2NllzR0pmRThVZTVjK1lnZVN5Y0RJM2x0VjFVdWlUNHI4NDgwZwp5Y0Rhb205bG5NeTZCbFNjNW1FS0pQTkhyQnkxZjVSLzFGaFhvYzMwMDVUOEFLTTJ4b3RlcWt6TmJ5aTA4V0ZPCmxBek5sdVJRQmgwQ2k2T2tTZ0Y4c2pITE1zWi84ek52NlpYWWoyMmZOVHFFQ1h2Z21zMmdPRjZjNXZrVmtDZkIKSzFINFdNMG9rY1dOKzhaVjMrbkFXZFVucTJlNzVVTzQ4ZzNNL0F1TFQ4aE84akJXbE5XcldSa3QxMnlhem5VbgpjUjVORTNraXNhdS9WZXRRaU51Ymswd1NLUnEwaGxtdG1kMGZSb0U4aWRVT3VlUHBkWGJsZmx5UVBYdz0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0K"
+# -- JWT server public key in base64
+jwtServerPublic: "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQ0lqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FnOEFNSUlDQ2dLQ0FnRUExS01Cck5xQi9tWTB5L3RCVUVKWgpwTERXb0dxL2d6Nk9kUkE0cDFlVzBDcUVnU2VmbGY2Uk1QekNxSFlnQVB0a2lRVXE3TGVJUEF2Vm1xZmFKMU55CjNxVDhLQVNuekJibFZrWURCTHdRdllCSGsxeG1hd2lMUDFtYThwWUhoZkV6MnlOdXJlNVh3ZW5tdWlaZWxIbkcKd2Y2ZkF2ajZabzFTNSt4OUFHelNZcDEvUFY0QUJxWHBlaVpVY2NlU3JOVzBja2hRdnpzOW1vcE5aMFZ4MTRhRgprdjdxbkpXdmpRS011R3h3Z1FEMUpseVI0MXk2Z1dTRjd5STBYZnhydXNrak5XZCtMZWN1RWpVS1UvRUxMRUlsCkl6V252TVJKcGhVbXZUeDAvYWV5dHAyWkVQdzAvcExKbmJDeWIwK1BESExoV3RCaHpGb3BZWFFzS1NWbE0rZC8KWkI5TWNiTWJ6aWVLVG1tT1p2b3pXQ3QyMWFMbVFJRlBWM2VHemMyQkFFbGxCN0gxN1A5bC8xN29CdXhacDJNaApEMVpXT0hib1Z1K2lLNWs3M2R6VVpxbS9JcERLZ1lrMjVzTjE1Q1NQZHg3eldNOFhMQThWQkNwVkk1SkFUQWpLCktEdDVjU2N3SUtyUWNxeWhQYi9GWEVLaFJydWVYYUFtMDI4RjRGZWJ4cGpwTW9yeGExU2N0TTJKUysxS1ZZRnYKYVUxems3cGNNVXcxWHNDU2VSZ0p5UHRIbzZoVTlpbzZRbG5DRTRrNWpINy9wNlQ5WXNudG8vV1lNSnVBcU5qSgpLZ2pSbUp0M2piQVVLYWJoUXd4NVJvOUdMa1YwNDB1dFdyNWtLaG9FN2xJTERpaDlEMzlURkp1YmZsaXdMeHRGCkZXVU5IVFlYN3BkTlNyVGVNdU9meHAwQ0F3RUFBUT09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
+
+passboltEnv:
+  plain:
+    # -- Configure passbolt privacy url
+    PASSBOLT_LEGAL_PRIVACYPOLICYURL: https://www.passbolt.com/privacy
+    # -- Configure passbolt fullBaseUrl
+    APP_FULL_BASE_URL: https://passbolt.filice.eu
+    # -- Configure passbolt to force ssl
+    PASSBOLT_SSL_FORCE: false
+    # -- Toggle passbolt public registration
+    PASSBOLT_REGISTRATION_PUBLIC: false
+    # -- Configure passbolt cake cache server
+    CACHE_CAKE_DEFAULT_SERVER: 127.0.0.1
+    # -- Configure passbolt default email service port
+    EMAIL_TRANSPORT_DEFAULT_PORT: 587
+    # -- Toggle passbolt debug mode
+    DEBUG: true
+    # -- Configure email used on gpg key. This is used when automatically creating a new gpg server key and when automatically calculating the fingerprint.
+    PASSBOLT_KEY_EMAIL: giovanni.filice@icloud.com
+    # -- Toggle passbolt selenium mode
+    PASSBOLT_SELENIUM_ACTIVE: false
+    # -- Configure passbolt license path
+    PASSBOLT_PLUGINS_LICENSE_LICENSE: /etc/passbolt/subscription_key.txt
+    # -- Configure passbolt default email from
+    EMAIL_DEFAULT_FROM: passbolt@filice.eu
+    # -- Configure passbolt default email host
+    EMAIL_TRANSPORT_DEFAULT_HOST: mail.filice.eu
+    # -- Toggle passbolt tls
+    EMAIL_TRANSPORT_DEFAULT_TLS: true
+    # -- Configure passbolt jwt private key path
+    # PASSBOLT_JWT_SERVER_KEY: /var/www/passbolt/config/jwt/jwt.key
+    PASSBOLT_JWT_SERVER_KEY: /etc/passbolt/jwt
+    # -- Configure passbolt jwt public key path
+    #PASSBOLT_JWT_SERVER_PEM: /var/www/passbolt/config/jwt/jwt.pem
+    PASSBOLT_JWT_SERVER_PEM: /etc/passbolt/jwt
+    # -- Toggle passbolt jwt authentication
+    PASSBOLT_PLUGINS_JWT_AUTHENTICATION_ENABLED: true
+    # -- Download Command for kubectl
+    KUBECTL_DOWNLOAD_CMD: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    TZ: Europe/Rome
+  secret:
+    # -- Configure passbolt cake cache password
+    CACHE_CAKE_DEFAULT_PASSWORD: 7d90IP!0AmQ3
+    # -- Configure passbolt default database password
+    DATASOURCES_DEFAULT_PASSWORD: fqRUvjBQaobWrfYf
+    # -- Configure passbolt default database username
+    DATASOURCES_DEFAULT_USERNAME: userU85
+    # -- Configure passbolt default database
+    DATASOURCES_DEFAULT_DATABASE: passbolt
+    # -- Configure passbolt default email service username
+    EMAIL_TRANSPORT_DEFAULT_USERNAME: passbolt@filice.eu
+    # -- Configure passbolt default email service password
+    EMAIL_TRANSPORT_DEFAULT_PASSWORD: eqeG4jVWG7
+    # -- Configure passbolt server gpg key fingerprint
+    # PASSBOLT_GPG_SERVER_KEY_FINGERPRINT: 3126DFF3DB388489F245F2B1CE580A33025EA7E9
+    # -- Configure passbolt security salt.
+    # SECURITY_SALT:
+  # -- Environment variables to add to the passbolt pods
+  extraEnv: []
+  # -- Environment variables from secrets or configmaps to add to the passbolt pods
+  extraEnvFrom:
+    []
+    # - secretRef:
+    #     name: passbolt-secret
+## Passbolt deployment parameters
+
+# -- If autoscaling is disabled this will define the number of pods to run
+replicaCount: 2
+
+# Configure autoscaling on passbolt deployment
+autoscaling:
+  # -- Enable autoscaling on passbolt deployment
+  enabled: false
+  # -- Configure autoscaling minimum replicas
+  minReplicas: 2
+  # -- Configure autoscaling maximum replicas
+  maxReplicas: 10
+  # -- Configure autoscaling target CPU uptilization percentage
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Enable role based access control
+rbacEnabled: true
+
+# -- Configure passbolt container livenessProbe
+livenessProbe:
+  # @ignore
+  httpGet:
+    port: https
+    scheme: HTTPS
+    path: /healthcheck/status.json
+    httpHeaders:
+      - name: Host
+        value: passbolt.filice.eu
+  initialDelaySeconds: 20
+  periodSeconds: 10
+# -- Configure passbolt container RadinessProbe
+readinessProbe:
+  # @ignore
+  httpGet:
+    port: https
+    scheme: HTTPS
+    httpHeaders:
+      - name: Host
+        value: passbolt.filice.eu
+    path: /healthcheck/status.json
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# Configure network policies to allow ingress access passbolt pods
+# networkPolicy defines which labels are allowed to reach to passbolt
+# and which namespaces
+networkPolicy:
+  # -- Enable network policies to allow ingress access passbolt pods
+  enabled: false
+  # -- Configure network policies label for ingress deployment
+  label: app.kubernetes.io/name
+  # -- Configure network policies podLabel for podSelector
+  podLabel: ingress-nginx
+  # -- Configure network policies namespaceLabel for namespaceSelector
+  namespaceLabel: ingress-nginx
+
+# -- Configure image pull secrets
+imagePullSecrets: []
+# -- Value to override the chart name on default
+nameOverride: ""
+# -- Value to override the whole fullName
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+
+# -- Map of annotation for passbolt server pod
+podAnnotations: {}
+
+# -- Security Context configuration for passbolt server pod
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+service:
+  # -- Configure passbolt service type
+  type: ClusterIP
+  # -- Configure passbolt service port
+  port: 443
+  # -- Configure passbolt service targetPort
+  targetPort: 443
+  # -- Configure passbolt service port name
+  name: https
+  # -- Annotations to add to the service
+  annotations: {}
+ingress:
+  # -- Enable passbolt ingress
+  enabled: false
+  # -- Configure passbolt ingress annotations
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  #  traefik.ingress.kubernetes.io/router.tls.options: default-maxtls12@kubernetescrd
+  # -- Configure passbolt ingress hosts
+  hosts:
+    # @ignored
+    - host: passbolt.filice.eu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # -- Configure passbolt ingress tls
+  #tls:
+    # @ignored
+    #- secretName: ingress-passbolt-tls
+    #  hosts:
+    #    - passbolt.filice.eu
+# -- Configure passbolt deployment nodeSelector
+nodeSelector: {}
+
+# -- Configure passbolt deployment tolerations
+tolerations: []
+
+# -- Configure passbolt deployment affinity
+
+affinity: 
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: node-role.kubernetes.io/worker
+          operator: In
+          values:
+          - 'true'
+      topologyKey: "kubernetes.io/hostname"
+
+# -- Add additional volumes, e.g. for overwriting config files
+extraVolumes: ""
+
+# -- Add additional volume mounts, e.g. for overwriting config files
+extraVolumeMounts: ""
