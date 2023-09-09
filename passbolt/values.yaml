@@ -259,10 +259,10 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
         matchExpressions:
-        - key: node-role.kubernetes.io/worker
+        - key: app.kubernetes.io/instance
           operator: In
           values:
-          - 'true'
+          - 'passbolt'
       topologyKey: "kubernetes.io/hostname"
 
 # -- Add additional volumes, e.g. for overwriting config files
