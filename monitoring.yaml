@@ -12,7 +12,7 @@ spec:
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 50.3.1
     chart: kube-prometheus-stack
-    path: /
+    path: monitoring
     helm:
       valueFiles:
       - values.yaml
