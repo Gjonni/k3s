@@ -259,7 +259,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
         matchExpressions:
-        - key: app.kubernetes.io/instance
+        - key: app.kubernetes.io/name
           operator: In
           values:
           - 'passbolt'
