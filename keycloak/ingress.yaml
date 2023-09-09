@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/name: keycloak
+  name: keycloak
+  namespace: keycloak-system
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: keycloak.k3s.filice.eu
+    http:
+      paths:
+      - backend:
+          service:
+            name: keycloak
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - keycloak.k3s.filice.eu
+    secretName: keycloak-tls
