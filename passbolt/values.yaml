@@ -43,7 +43,7 @@ mariadb:
             - key: app.kubernetes.io/component
               operator: In
               values:
-              - primary
+              - secondary
           topologyKey: "kubernetes.io/hostname"
 
 
