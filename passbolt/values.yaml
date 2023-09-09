@@ -281,7 +281,16 @@ tolerations: []
 
 # -- Configure passbolt deployment affinity
 
-affinity: {}
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name
+          operator: In
+          values:
+          - passbolt
+      topologyKey: "kubernetes.io/hostname"
 
 # -- Add additional volumes, e.g. for overwriting config files
 extraVolumes: ""
