@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: dr-schedule
+  namespace: velero
+spec:
+  schedule: 0 0 1 * *
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    includedNamespaces:
+    - '*'
+    itemOperationTimeout: 0s
+    metadata: {}
+    ttl: 0s
+  useOwnerReferencesInBackup: false
