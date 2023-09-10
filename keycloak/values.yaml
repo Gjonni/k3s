@@ -165,9 +165,6 @@ metrics:
 postgresql:
   enabled: true
   auth:
-    postgresPassword: ""
-    username: bn_keycloak
-    password: ""
     database: bitnami_keycloak
     existingSecret: "keycloak-postgresql"
   architecture: standalone
