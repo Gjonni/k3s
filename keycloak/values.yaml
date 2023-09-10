@@ -10,7 +10,7 @@ diagnosticMode:
     - infinity
 
 auth:
-  adminUser:
+  adminUser: "gjonni"
   adminPassword: ""
   existingSecret: "keycloak"
   passwordSecretKey: "admin-password"
