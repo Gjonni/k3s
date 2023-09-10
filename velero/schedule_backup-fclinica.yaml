@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: backup-fclinica
+  namespace: velero
+spec:
+  schedule: 5 4 * * *
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    includedNamespaces:
+    - fclinica
+    itemOperationTimeout: 0s
+    metadata: {}
+    ttl: 168h0m0s
+  useOwnerReferencesInBackup: false
