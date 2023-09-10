@@ -169,7 +169,7 @@ postgresql:
     username: bn_keycloak
     password: ""
     database: bitnami_keycloak
-    existingSecret: ""
+    existingSecret: "keycloak-postgresql"
   architecture: standalone
 
 externalDatabase:
