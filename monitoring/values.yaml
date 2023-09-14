@@ -139,6 +139,4 @@ prometheus:
       - name: Centrale
         headers:
           X-Scope-OrgID: gfilice
-        tls_config:
-          insecure_skip_verify: true
         url: https://nginx.mimir.k3s.filice.eu/api/v1/push
