@@ -129,21 +129,21 @@ grafana:
     relabelings: []
 
 
-prometheus:
-  prometheusSpec:
-    enableFeatures:
-      - expand-external-labels
-    externalLabels:
-      cluster: gfilice-l3s
-    remoteWrite:
-      - name: Centrale
-        headers:
-          X-Scope-OrgID: gfilice
-        url: https://nginx.mimir.k3s.filice.eu/api/v1/push
-        basicAuth:
-          username:
-            name: grafana-cloud-basic-auth
-            key: username
-          password:
-            name: grafana-cloud-basic-auth
-            key: password
+#prometheus:
+#  prometheusSpec:
+#    enableFeatures:
+#      - expand-external-labels
+#    externalLabels:
+#      cluster: gfilice-l3s
+#    remoteWrite:
+#      - name: Centrale
+#        headers:
+#          X-Scope-OrgID: gfilice
+#        url: https://nginx.mimir.k3s.filice.eu/api/v1/push
+#        basicAuth:
+#          username:
+#            name: grafana-cloud-basic-auth
+#            key: username
+#          password:
+#            name: grafana-cloud-basic-auth
+#            key: password
