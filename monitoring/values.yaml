@@ -140,6 +140,10 @@ prometheus:
         headers:
           X-Scope-OrgID: gfilice
         url: https://nginx.mimir.k3s.filice.eu/api/v1/push
-        basic_auth:
-          username: gfilice
-          password: "Fg021080!"
+        basicAuth:
+          username:
+            name: grafana-cloud-basic-auth
+            key: username
+          password:
+            name: grafana-cloud-basic-auth
+            key: password
