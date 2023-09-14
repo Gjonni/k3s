@@ -127,3 +127,18 @@ grafana:
     tlsConfig: {}
     scrapeTimeout: 30s
     relabelings: []
+
+
+prometheus:
+  prometheusSpec:
+    enableFeatures:
+      - expand-external-labels
+    externalLabels:
+      cluster: gfilice-l3s
+    remoteWrite:
+      - name: Centrale
+        headers:
+          X-Scope-OrgID: gfilice
+        tls_config:
+          insecure_skip_verify: true
+        url: https://nginx.mimir.k3s.filice.eu/api/v1/push
