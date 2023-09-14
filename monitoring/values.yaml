@@ -140,3 +140,6 @@ prometheus:
         headers:
           X-Scope-OrgID: gfilice
         url: https://nginx.mimir.k3s.filice.eu/api/v1/push
+        basic_auth:
+          username: gfilice
+          password: Fg021080!
