@@ -142,4 +142,4 @@ prometheus:
         url: https://nginx.mimir.k3s.filice.eu/api/v1/push
         basic_auth:
           username: gfilice
-          password: Fg021080!
+          password: "Fg021080!"
