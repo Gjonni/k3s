@@ -10,11 +10,11 @@ spec:
   source:
     directory:
       jsonnet: {}
-      recurse: true
-    path: ./
+      recurse: false
+    path: App
     repoURL: https://github.com/Gjonni/k3s.git
     targetRevision: HEAD
   syncPolicy:
     automated:
-      selfHeal: true
+      selfHeal: false
       prune: false
