@@ -10,7 +10,7 @@ spec:
   source:
     directory:
       jsonnet: {}
-      recurse: true
+      recurse: false
     path: ./
     repoURL: https://github.com/Gjonni/k3s.git
     targetRevision: HEAD
