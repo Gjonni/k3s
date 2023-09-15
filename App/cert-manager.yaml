@@ -9,13 +9,17 @@ spec:
     server: https://kubernetes.default.svc
   project: applicazioni
   source:
-    chart: cert-manager
-    helm:
-      parameters:
-      - name: installCRDs
-        value: "true"
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.12.4
+    - chart: cert-manager
+      helm:
+        parameters:
+        - name: installCRDs
+          value: "true"
+      repoURL: https://charts.jetstack.io
+      targetRevision: v1.12.4
+    - repoURL: https://github.com/Gjonni/k3s.git
+      ref: values
+      path: cert-manager
+
   syncPolicy:
     automated:
       selfHeal: true
