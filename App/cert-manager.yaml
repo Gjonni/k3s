@@ -8,7 +8,7 @@ spec:
     namespace: cert-manager
     server: https://kubernetes.default.svc
   project: applicazioni
-  source:
+  sources:
     - chart: cert-manager
       helm:
         parameters:
