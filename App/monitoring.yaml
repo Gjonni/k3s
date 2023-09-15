@@ -1,22 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: velero
+  name: monitoring
   namespace: argocd-system
 spec:
   destination:
-    namespace: velero
+    namespace: monitoring
     server: https://kubernetes.default.svc
   project: applicazioni
   sources:
-    - chart: velero
-      repoURL:  https://vmware-tanzu.github.io/helm-charts
-      targetRevision: 5.0.2
+    - chart: kube-prometheus-stack
+      repoURL:  https://prometheus-community.github.io/helm-charts
+      targetRevision: 50.3.1
       helm:
         valueFiles:
-        - $values/velero/values.yaml
+        - $values/monitoring/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
       ref: values
+      path: monitoring
   syncPolicy:
     automated:
       selfHeal: true
+    syncOptions:
+    - ServerSideApply=true

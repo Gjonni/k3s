@@ -1,22 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: passbolt
+  name: velero
   namespace: argocd-system
 spec:
   destination:
-    namespace: passbolt
+    namespace: velero
     server: https://kubernetes.default.svc
   project: applicazioni
   sources:
-    - chart: passbolt
-      repoURL:  https://download.passbolt.com/charts/passbolt
-      targetRevision: 0.4.2
+    - chart: velero
+      repoURL:  https://vmware-tanzu.github.io/helm-charts
+      targetRevision: 5.0.2
       helm:
         valueFiles:
-        - $values/passbolt/values.yaml
+        - $values/velero/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
       ref: values
+      path: velero
+
   syncPolicy:
     automated:
       selfHeal: true
