@@ -17,8 +17,6 @@ spec:
         - $values/wiki/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
       ref: values
-    - repoURL: https://github.com/Gjonni/k3s.git
-      path: wiki
   syncPolicy:
     automated:
       selfHeal: true
