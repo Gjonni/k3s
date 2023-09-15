@@ -17,6 +17,5 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
-  ignoreDifferences:
-  - group: "velero.io/v1"
-    kind: Backup
+    syncOptions:
+    - RespectIgnoreDifferences=true
