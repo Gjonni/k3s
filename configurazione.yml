@@ -18,5 +18,5 @@ spec:
     automated:
       selfHeal: true
   ignoreDifferences:
-  - group: "*"
+  - group: "velero.io/v1"
     kind: Backup
