@@ -17,5 +17,6 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
-    syncOptions:
-    - ApplyOutOfSyncOnly=true
+  ignoreDifferences:
+  - group: "*"
+    kind: Backup
