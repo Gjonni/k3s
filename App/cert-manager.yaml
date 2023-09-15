@@ -17,9 +17,7 @@ spec:
       repoURL: https://charts.jetstack.io
       targetRevision: v1.12.4
     - repoURL: https://github.com/Gjonni/k3s.git
-      ref: values
       path: cert-manager
-
   syncPolicy:
     automated:
       selfHeal: true
