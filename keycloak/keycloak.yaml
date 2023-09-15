@@ -17,11 +17,6 @@ spec:
         - $values/keycloak/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
       ref: values
-      path: keycloak
-      directory:
-        jsonnet: {}
-        recurse: true
-
   syncPolicy:
     automated:
       selfHeal: true
