@@ -16,8 +16,6 @@ spec:
         valueFiles:
         - $values/wiki/values.yaml
     - repoURL: https://github.com/Gjonni/k3s.git
-      path: wiki
-      targetRevision: HEAD
       ref: values
   syncPolicy:
     automated:
