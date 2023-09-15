@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fclinica
+  namespace: argocd-system
+spec:
+  destination:
+    namespace: fclinica
+    server: https://kubernetes.default.svc
+  project: applicazioni
+  sources:
+    - repoURL: https://github.com/Gjonni/k3s.git
+      ref: values
+      path: fclinica
+  syncPolicy:
+    automated:
+      selfHeal: false
