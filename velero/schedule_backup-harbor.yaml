@@ -4,6 +4,7 @@ metadata:
   name: backup-harbor
   namespace: velero
 spec:
+  paused: true
   schedule: 5 4 * * *
   template:
     csiSnapshotTimeout: 0s

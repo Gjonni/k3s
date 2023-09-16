@@ -4,6 +4,7 @@ metadata:
   name: backup-passbolt
   namespace: velero
 spec:
+  paused: true
   schedule: 0 0 * * *
   template:
     csiSnapshotTimeout: 0s
