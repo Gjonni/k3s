@@ -11,7 +11,7 @@ spec:
   source:
     chart: phpmyadmin
     repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 12.1.0
+    targetRevision: 12.1.2
     helm:
       parameters:
       - name: db.ssl.verify
