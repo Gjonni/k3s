@@ -129,6 +129,17 @@ grafana:
     relabelings: []
 
 
+prometheus:
+  prometheusSpec:    
+    storageSpec: 
+     volumeClaimTemplate:
+       spec:
+         storageClassName: longhorn
+         accessModes: ["ReadWriteOnce"]
+         resources:
+           requests:
+             storage: 50Gi
+
 #prometheus:
 #  prometheusSpec:
 #    enableFeatures:
