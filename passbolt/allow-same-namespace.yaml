@@ -9,4 +9,3 @@ spec:
   podSelector: {}
   policyTypes:
   - Ingress
-status: {}
