@@ -77,7 +77,7 @@ configuration:
   backupStorageLocation:
   - name: default
     provider: aws
-    bucket: k3s-backup
+    bucket: backup-k3s
     caCert:
     prefix:
     default:
