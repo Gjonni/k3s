@@ -33,10 +33,10 @@ alertmanager:
       routes:
       - receiver: 'null'
         matchers:
-          - alertname =~ "InfoInhibitor|Watchdog"
+          - severity =~ "info|warning"
       - receiver: 'telegram'
         matchers:
-          - severity =~ "critical|warning"
+          - severity =~ "critical"
     receivers:
     - name: 'null'
     - name: 'telegram'
