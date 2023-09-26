@@ -8,7 +8,7 @@ redis:
 
 mariadbDependencyEnabled: true
 mariadb:
-  architecture: replication
+  architecture: standalone
   auth:
     rootPassword: xYypwD6M14JF04bp
     username: userU85
