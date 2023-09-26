@@ -4,7 +4,7 @@ metadata:
   name: dr-schedule
   namespace: velero
 spec:
-  paused: true
+  paused: false
   schedule: 0 0 1 * *
   template:
     csiSnapshotTimeout: 0s
