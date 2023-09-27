@@ -171,11 +171,11 @@ replicaCount: 1
 # Configure autoscaling on passbolt deployment
 autoscaling:
   # -- Enable autoscaling on passbolt deployment
-  enabled: false
+  enabled: true
   # -- Configure autoscaling minimum replicas
   minReplicas: 2
   # -- Configure autoscaling maximum replicas
-  maxReplicas: 10
+  maxReplicas: 5
   # -- Configure autoscaling target CPU uptilization percentage
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
@@ -281,16 +281,16 @@ tolerations: []
 
 # -- Configure passbolt deployment affinity
 
-affinity:
-  podAntiAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-    - labelSelector:
-        matchExpressions:
-        - key: app.kubernetes.io/name
-          operator: In
-          values:
-          - passbolt
-      topologyKey: "kubernetes.io/hostname"
+#affinity:
+#  podAntiAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#    - labelSelector:
+#        matchExpressions:
+#        - key: app.kubernetes.io/name
+#          operator: In
+#          values:
+#          - passbolt
+#      topologyKey: "kubernetes.io/hostname"
 
 # -- Add additional volumes, e.g. for overwriting config files
 extraVolumes: ""
