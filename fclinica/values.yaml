@@ -1,0 +1,153 @@
+# Default values for fclinica.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+s3:
+  enabled: true
+  access_key: 8aab5806b1c87cb0a3b963479616a0c7
+  secret_key: d36a2462168247222effc11c96d2148f
+  bucket: fclinica-backup
+  endpoint: https://eu2.contabostorage.com
+  path_style: true
+
+stripe:
+  enabled: true
+  access_key: pk_test_znlFgsvQATvNVKv39Rt4Ep0K0000wYV4Vw
+  secret_key: sk_test_socy8nxqBv3G6xjaSe2lW8I900KOq8XbiB
+
+certmanager:
+  enabled: true
+  issuer: letsencrypt-prod
+
+cronjob:
+  enabled: true
+
+pullsecrets:
+  username: ""
+  password: ""
+
+
+mariadb:
+  enabled: true
+  architecture: standalone
+
+  auth:
+    rootPassword: "Iv7mB2JaK7BtGiI2"
+    database: tenancy
+    username: "userBYS"
+    password: "nhohE0xftrDdxvV5"
+    replicationUser: replicator
+    replicationPassword: ""
+    existingSecret: ""
+    forcePassword: false
+    usePasswordFiles: false
+    customPasswordFiles: {}
+   
+  primary:
+    resources:
+      limits: {}
+      requests: {}
+    persistence:
+      enabled: true
+      storageClass: ""
+      size: 20Gi
+    pdb:
+      create: false
+      minAvailable: 1
+      maxUnavailable: ""
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+              - vmi1352668.contaboserver.net
+
+  secondary:
+    name: secondary
+    replicaCount: 1
+    resources:
+      limits: {}
+      requests: {}
+    persistence:
+      enabled: true
+      size: 20Gi
+    pdb:
+      create: false
+      minAvailable: 1
+      maxUnavailable: ""
+
+  metrics:
+    enabled: false
+
+
+fclinica:
+  enabled: true
+  replicaCount: 1  
+  image:
+    repository: harbor.k3s.filice.eu/fclinica/fclinica
+    tag: latest
+    pullPolicy: Always
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+  
+  serviceAccount:
+    create: true
+    name: ""
+
+  tenants:
+    enabled: true
+    tenant: 
+      - name: 3825f975-f246-4e90-a21a-a413ef91af89
+        host: mail.marialuisacarrella.it
+        port: 587
+        from_address: no-reply@marialuisacarrella.it
+        from_name: "Dott/ssa Maria Luisa Carrella"
+        username: no-reply@marialuisacarrella.it
+        password: R6qB%6fr$trN
+
+  
+  persistence:
+    enabled: true
+    accessModes: ReadWriteMany
+    size: 10Gi
+
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP
+        targetPort: 8080
+      - name: https
+        port: 443
+        protocol: TCP
+        targetPort: 8443
+
+  IngressRouteTCP:
+    enabled: true
+    hosts:
+      - host: carrella.fclinica.it
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+
+            
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  labels: {}
+

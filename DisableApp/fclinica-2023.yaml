@@ -11,7 +11,7 @@ spec:
   sources:
     - chart: helm/fclinica-2023
       repoURL: harbor.k3s.filice.eu
-      targetRevision: 0.0.3
+      targetRevision: 0.0.2
       helm:
         valueFiles:
         - $values/fclinica-2023/values.yaml
