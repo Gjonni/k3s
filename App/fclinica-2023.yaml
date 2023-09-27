@@ -9,8 +9,8 @@ spec:
     server: https://kubernetes.default.svc
   project: applicazioni
   sources:
-    - chart: fclinica-2023
-      repoURL: harbor.k3s.filice.eu/helm
+    - chart: helm/fclinica-2023
+      repoURL: harbor.k3s.filice.eu
       targetRevision: 0.0.1
       helm:
         valueFiles:
