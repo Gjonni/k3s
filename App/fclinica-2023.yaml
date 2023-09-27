@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fclinica-2023
+  namespace: argocd-system
+spec:
+  destination:
+    namespace: fclinica-2023
+    server: https://kubernetes.default.svc
+  project: applicazioni
+  sources:
+    - chart: fclinica-2023
+      repoURL: https://github.com/Gjonni/HelmCharts.git
+      targetRevision: 0.0.1
+      helm:
+        valueFiles:
+        - $values/fclinica-2023/values.yaml
+    - repoURL: https://github.com/Gjonni/k3s.git
+      ref: values
+      path: fclinica-2023
+  syncPolicy:
+    automated:
+      selfHeal: true
