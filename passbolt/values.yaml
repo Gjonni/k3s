@@ -171,7 +171,7 @@ replicaCount: 2
 # Configure autoscaling on passbolt deployment
 autoscaling:
   # -- Enable autoscaling on passbolt deployment
-  enabled: true
+  enabled: false
   # -- Configure autoscaling minimum replicas
   minReplicas: 2
   # -- Configure autoscaling maximum replicas
