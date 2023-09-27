@@ -166,7 +166,7 @@ passboltEnv:
 ## Passbolt deployment parameters
 
 # -- If autoscaling is disabled this will define the number of pods to run
-replicaCount: 2
+replicaCount: 0
 
 # Configure autoscaling on passbolt deployment
 autoscaling:
