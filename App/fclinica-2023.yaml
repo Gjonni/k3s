@@ -10,7 +10,7 @@ spec:
   project: default
   sources:
     - chart: fclinica-2023
-      repoURL: harbor.k3s.filice.eu/helm/fclinica-2023
+      repoURL: harbor.k3s.filice.eu/helm
       targetRevision: 0.0.1
       helm:
         valueFiles:
