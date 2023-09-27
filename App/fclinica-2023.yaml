@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: fclinica-2023
     server: https://kubernetes.default.svc
-  project: applicazioni
+  project: default
   sources:
     - chart: fclinica-2023
       repoURL: harbor.k3s.filice.eu/helm/fclinica-2023
