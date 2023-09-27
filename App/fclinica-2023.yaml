@@ -10,7 +10,7 @@ spec:
   project: applicazioni
   sources:
     - chart: fclinica-2023
-      repoURL: https://harbor.k3s.filice.eu/helm/fclinica-2023
+      repoURL: oci://harbor.k3s.filice.eu/helm/fclinica-2023
       targetRevision: 0.0.1
       helm:
         valueFiles:
