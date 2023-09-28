@@ -54,7 +54,7 @@ grafana:
   forceDeployDashboards: false
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: Europe/Rome
-  adminPassword: {{ b64enc | quote }}
+  adminPassword: prom-operator
 
   rbac:
     pspEnabled: false
