@@ -2,11 +2,19 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+minio:
+  enabled: true
+  access_key: 8aab5806b1c87cb0a3b963479616a0c7
+  secret_key: d36a2462168247222effc11c96d2148f
+  bucket: backup-fclinica
+  endpoint: https://eu2.contabostorage.com
+  path_style: true
+  
 s3:
   enabled: true
   access_key: 8aab5806b1c87cb0a3b963479616a0c7
   secret_key: d36a2462168247222effc11c96d2148f
-  bucket: fclinica-backup
+  bucket: backup-fclinica
   endpoint: https://eu2.contabostorage.com
   path_style: true
 
