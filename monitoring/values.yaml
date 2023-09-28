@@ -54,8 +54,10 @@ grafana:
   forceDeployDashboards: false
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: Europe/Rome
-  adminPassword: prom-operator
-
+  admin:
+    existingSecret: "kube-prometheus-stack-grafana"
+    userKey: admin-user
+    passwordKey: admin-password
   rbac:
     pspEnabled: false
 
