@@ -55,7 +55,7 @@ grafana:
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: Europe/Rome
   admin:
-    existingSecret:  monitoring-grafana
+    existingSecret: monitoring-grafana
     userKey: admin-user
     passwordKey: admin-password
   rbac:
