@@ -54,10 +54,12 @@ grafana:
   forceDeployDashboards: false
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: Europe/Rome
-  admin:
-    existingSecret: monitoring-grafana
-    userKey: admin-user
-    passwordKey: admin-password
+  adminPassword: prom-operator
+#  admin:
+#    existingSecret: monitoring-grafana
+#    userKey: admin-user
+#    passwordKey: admin-password
+
   rbac:
     pspEnabled: false
 
