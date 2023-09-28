@@ -55,7 +55,7 @@ grafana:
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: Europe/Rome
   admin:
-    existingSecret: "kube-prometheus-stack-grafana"
+    existingSecret:  monitoring-grafana
     userKey: admin-user
     passwordKey: admin-password
   rbac:
