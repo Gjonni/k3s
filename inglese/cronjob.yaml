@@ -19,3 +19,5 @@ spec:
               env:
               - name: TZ
                 values: Europe/Rome
+              - name: LOGLEVEL
+                values: INFO
