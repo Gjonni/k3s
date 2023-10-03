@@ -17,7 +17,7 @@ spec:
               - secretRef:
                   name: partec-secrets
               env:
-              - name: TZ
-                values: Europe/Rome
-              - name: LOGLEVEL
-                values: INFO
+                - name: TZ
+                  values: Europe/Rome
+                - name: LOGLEVEL
+                  values: INFO
