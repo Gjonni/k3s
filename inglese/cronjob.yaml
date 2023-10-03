@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: prenota-lezioni
+spec:
+  schedule: "1 0 1 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: prenota-lezioni-inglese
+              image: harbor.k3s.filice.eu/library/inglese:latest
+              envFrom:
+              - secretRef:
+                  name: partec-secrets

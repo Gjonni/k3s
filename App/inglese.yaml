@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: inglese
+  namespace: argocd-system
+spec:
+  destination:
+    namespace: inglese
+    server: https://kubernetes.default.svc
+  project: applicazioni
+  sources:
+    - repoURL: https://github.com/Gjonni/k3s.git
+      path: inglese
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

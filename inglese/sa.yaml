@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+imagePullSecrets:
+- name: inglese-pull-secrets
+metadata:
+  name: sa-inglese
+  
