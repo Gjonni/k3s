@@ -12,6 +12,10 @@ spec:
           containers:
             - name: prenota-lezioni-inglese
               image: harbor.k3s.filice.eu/library/inglese:latest
+              imagePullPolicy: Always
               envFrom:
               - secretRef:
                   name: partec-secrets
+              env:
+              - name: TZ
+                values: Europe/Rome
