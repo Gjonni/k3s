@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: prenota-lezioni
 spec:
-  schedule: "* * * * *"
+  schedule: "1 0 1 * *"
   jobTemplate:
     spec:
       template:
