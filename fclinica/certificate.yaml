@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fclinica-crt
+  namespace: fclinica
+  annotations: {}
+  #  helm.sh/resource-policy: keep
+spec:
+  dnsNames:
+  - carrella.fclinica.it
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: fclinica-tls
+  usages:
+  - digital signature
+  - key encipherment

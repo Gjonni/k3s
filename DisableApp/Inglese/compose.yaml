@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  inglese:
+    build: .
+    environment:
+      INGLESE_USER: giovanni.filice@par-tec.it
+      INGLESE_PASSOWRD: Fg300589@
+      INGLESE_URL: inglese.par-tec.it
+      TZ: Europe/Rome
+
