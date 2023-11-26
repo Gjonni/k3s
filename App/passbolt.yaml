@@ -11,7 +11,7 @@ spec:
   sources:
     - chart: passbolt
       repoURL:  https://download.passbolt.com/charts/passbolt
-      targetRevision: 0.4.2
+      targetRevision: 0.7.0
       helm:
         valueFiles:
         - $values/passbolt/values.yaml
